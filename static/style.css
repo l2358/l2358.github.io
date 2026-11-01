@@ -1,0 +1,192 @@
+/* ============================================================
+   起始页 · 样式（原版 Material / mdui 视觉语言）
+   白色 56px 搜索条 + 2px 3px 8px 投影，强调色 #2196f3
+   搜索条内容区宽度 = 视口的 40%（原 60% 基础上收窄三分之一）
+   ============================================================ */
+
+:root {
+  --page: #f8f8f9;
+  --surface: #ffffff;
+  --text: #2c3e50;
+  --sub: #7d7d7d;
+  --hover: #f5f5f5;
+  --accent: #2196f3;
+  --accent-soft: #e3f2fd;
+  --hairline: rgba(0, 0, 0, .09);
+}
+
+html[data-theme="dark"] {
+  --page: #121212;
+  --surface: #1e1e1e;
+  --text: #d8dde3;
+  --sub: #9e9e9e;
+  --hover: #2a2a2a;
+  --accent: #64b5f6;
+  --accent-soft: #1a3a52;
+  --hairline: rgba(255, 255, 255, .14);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--page);
+  color: var(--text);
+  font: 400 14px/1.5 Avenir, Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input { font: inherit; color: inherit; }
+button { border: 0; background: none; padding: 0; cursor: pointer; }
+svg { display: block; }
+
+/* ---------------- 顶部搜索条 ---------------- */
+.header {
+  position: relative;
+  background: var(--surface);
+}
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  margin: 0;
+  padding: 0 30%;
+}
+
+.engine {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 42px;
+  height: 36px;
+  color: #bdbdbd;
+}
+.engine:hover { color: var(--sub); }
+
+.engine .chev { width: 11px; height: 11px; opacity: .8; transition: transform .2s ease; }
+.engine[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
+/* 品牌图标：24 视框统一到 20px 光学尺寸 */
+.engine-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+}
+.engine-icon svg { width: 20px; height: 20px; }
+
+.input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 56px;
+  padding: 0 8px;
+  background: none;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  color: #000;
+}
+html[data-theme="dark"] .input { color: #fff; }
+.input::placeholder { color: #9e9e9e; }
+
+.submit {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: #231f20;
+  transition: opacity .2s;
+}
+html[data-theme="dark"] .submit { color: #cfd4d9; }
+.submit svg { width: 22px; height: 22px; }
+.submit:hover { opacity: .65; }
+
+.theme-btn {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #bdbdbd;
+  transition: background-color .2s, color .2s;
+}
+.theme-btn:hover { background: var(--hover); color: var(--sub); }
+.theme-btn svg { width: 18px; height: 18px; }
+.i-moon { display: none; }
+html[data-theme="dark"] .i-sun { display: none; }
+html[data-theme="dark"] .i-moon { display: block; }
+
+/* ---------------- 引擎下拉 ---------------- */
+.engine-menu {
+  position: absolute;
+  top: 56px;
+  left: calc(30% - 10px);
+  z-index: 20;
+  min-width: 176px;
+  max-height: min(60vh, 400px);
+  overflow-y: auto;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+.engine-menu[hidden] { display: none; }
+
+.engine-menu li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.engine-menu li:hover,
+.engine-menu li.active { background: var(--hover); }
+.engine-menu li[aria-selected="true"] { background: var(--accent-soft); }
+
+.engine-menu .name { white-space: nowrap; }
+
+.engine-menu .tick {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  color: var(--accent);
+  opacity: 0;
+}
+.engine-menu li[aria-selected="true"] .tick { opacity: 1; }
+
+/* ---------------- 响应式 ---------------- */
+@media (max-width: 767px) {
+  body { background: var(--surface); }
+
+  .searchbar { padding: 0 12px; }
+  .theme-btn { display: none; }
+
+  .engine-menu { left: 8px; right: 8px; min-width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}

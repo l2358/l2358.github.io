@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>起始页 · 搜索</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta name="description" content="搜索起始页：多引擎切换，结果在新标签页打开。">
+<meta name="apple-mobile-web-app-title" content="O.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232196f3'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="static/style.css">
+<script>
+  /* 默认浅色（原版没有深色模式），只有用户手动切过才恢复 */
+  (function () {
+    try {
+      var saved = localStorage.getItem('sp.theme');
+      if (saved) document.documentElement.setAttribute('data-theme', JSON.parse(saved));
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header class="header">
+  <form class="searchbar" id="searchForm" action="https://cn.bing.com/search" method="get" target="_blank" rel="noopener" autocomplete="off">
+    <button class="engine" id="engineBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="engineMenu" aria-label="切换搜索引擎" title="切换搜索引擎">
+      <span class="engine-icon" id="engineIcon" aria-hidden="true"></span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <input class="input" id="q" name="q" type="text" placeholder="Search" aria-label="搜索关键词" enterkeyhint="search" spellcheck="false">
+
+    <button class="submit" id="submitBtn" type="submit" aria-label="搜索" title="搜索">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path clip-rule="evenodd" d="M64.5,44.6c0-11.6-9.4-20.9-20.9-20.9c-11.6,0-20.9,9.4-20.9,20.9c0,11.6,9.4,20.9,20.9,20.9C55.1,65.6,64.5,56.2,64.5,44.6z M80,79.3l-1.8,1.8l-19-19c-4.2,3.7-9.6,6-15.7,6c-13,0-23.5-10.5-23.5-23.5c0-13,10.5-23.5,23.5-23.5c13,0,23.5,10.5,23.5,23.5c0,6-2.3,11.5-6,15.7L80,79.3z" fill="currentColor" fill-rule="evenodd"/>
+      </svg>
+    </button>
+  </form>
+
+  <ul class="engine-menu" id="engineMenu" role="listbox" aria-label="搜索引擎" hidden></ul>
+
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深色模式" title="切换深色模式">
+    <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.4 19.6L6 18M18 6l1.6-1.6"/>
+    </svg>
+    <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/>
+    </svg>
+  </button>
+</header>
+
+<script src="static/app.js"></script>
+</body>
+</html>
